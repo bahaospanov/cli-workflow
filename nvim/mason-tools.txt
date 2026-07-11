@@ -1,0 +1,4 @@
+basedpyright
+lua-language-server
+pyright
+stylua

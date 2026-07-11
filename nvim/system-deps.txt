@@ -1,0 +1,9 @@
+# System binaries required by plugins but not captured elsewhere in this backup
+# (not in the lua files, not in lazy-lock.json). One per line: <brew-package> [# note].
+# First whitespace token = brew package name. Blank lines and # comments ignored.
+# Removal is manual — a dep is NOT auto-pruned when its plugin is dropped
+# (may be shared by other tools). Curate deletions by hand.
+
+tree-sitter-cli   # nvim-treesitter — compiles language parsers
+imagemagick       # image.nvim (magick_cli processor) — inline image viewing; also needs Kitty-graphics terminal
+lazygit           # lazygit.nvim — git UI in floating window
