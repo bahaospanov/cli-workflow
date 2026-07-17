@@ -1,6 +1,6 @@
 # tmux config backup
 
-iCloud-synced backup of `~/.config/tmux/tmux.conf`.
+Backup of `~/.config/tmux/tmux.conf`, restorable to a fresh machine.
 
 ## Scripts
 
