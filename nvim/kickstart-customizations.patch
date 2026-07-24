@@ -1,5 +1,5 @@
 diff --git a/init.lua b/init.lua
-index 8d1f19a..d362d83 100644
+index 8d1f19a..6e8b8d9 100644
 --- a/init.lua
 +++ b/init.lua
 @@ -91,7 +91,7 @@ vim.g.mapleader = ' '
@@ -59,7 +59,24 @@ index 8d1f19a..d362d83 100644
        vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
  
        -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
-@@ -602,7 +618,7 @@ require('lazy').setup({
+@@ -595,6 +611,16 @@ require('lazy').setup({
+         end,
+       })
+ 
++      -- Vue SFC support is split across two servers: `vue_ls` owns the template/style
++      -- blocks, while the TypeScript inside `.vue` comes from `vtsls` loading this
++      -- plugin (Vue language server v3 dropped takeover mode). See `:help lspconfig-vue_ls`.
++      local vue_plugin = {
++        name = '@vue/typescript-plugin',
++        location = vim.fn.stdpath 'data' .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
++        languages = { 'vue' },
++        configNamespace = 'typescript',
++      }
++
+       -- Enable the following language servers
+       --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+       --  See `:help lsp-config` for information about keys and how to configure
+@@ -602,14 +628,25 @@ require('lazy').setup({
        local servers = {
          -- clangd = {},
          -- gopls = {},
@@ -68,7 +85,27 @@ index 8d1f19a..d362d83 100644
          -- rust_analyzer = {},
          --
          -- Some languages (like typescript) have entire language plugins that can be useful:
-@@ -867,12 +883,35 @@ require('lazy').setup({
+         --    https://github.com/pmizio/typescript-tools.nvim
+         --
+-        -- But for many setups, the LSP (`ts_ls`) will work just fine
+-        -- ts_ls = {},
++        -- JavaScript/TypeScript. `vtsls` is a thin wrapper around tsserver; do not
++        -- enable `ts_ls` alongside it. `vue` is in `filetypes` so it also serves SFCs.
++        vtsls = {
++          filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
++          settings = {
++            vtsls = {
++              tsserver = {
++                globalPlugins = { vue_plugin },
++              },
++            },
++          },
++        },
++        vue_ls = {},
+ 
+         stylua = {}, -- Used to format Lua code
+ 
+@@ -867,12 +904,35 @@ require('lazy').setup({
        --  You could remove this setup call if you don't like it,
        --  and try some other statusline plugin
        local statusline = require 'mini.statusline'
@@ -109,7 +146,7 @@ index 8d1f19a..d362d83 100644
        ---@diagnostic disable-next-line: duplicate-set-field
        statusline.section_location = function() return '%2l:%-2v' end
  
-@@ -952,13 +991,13 @@ require('lazy').setup({
+@@ -952,13 +1012,13 @@ require('lazy').setup({
    -- require 'kickstart.plugins.lint',
    -- require 'kickstart.plugins.autopairs',
    -- require 'kickstart.plugins.neo-tree',

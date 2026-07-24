@@ -2,3 +2,5 @@ basedpyright
 lua-language-server
 pyright
 stylua
+vtsls
+vue-language-server

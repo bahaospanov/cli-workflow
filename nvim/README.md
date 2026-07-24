@@ -45,9 +45,12 @@ image.nvim also needs a terminal that speaks the Kitty graphics protocol (Ghostt
 4. gitsigns `current_line_blame` enabled (300ms delay)
 5. `<leader>sC` — telescope workspace class search (LSP dynamic symbols)
 6. `basedpyright` added to LSP servers
-7. Custom statusline — git branch + diff stats + line:col; winbar shows file path
-8. `require 'kickstart.plugins.gitsigns'` enabled (recommended gitsigns keymaps)
-9. Enables `{ import = 'custom.plugins' }` to load custom plugin specs
+7. `vtsls` (JS/TS/JSX/TSX + `.vue`) and `vue_ls` added to LSP servers — Vue SFCs
+   need both: `vue_ls` owns template/style, `vtsls` handles the TypeScript via
+   `@vue/typescript-plugin` (Vue LS v3 dropped takeover mode)
+8. Custom statusline — git branch + diff stats + line:col; winbar shows file path
+9. `require 'kickstart.plugins.gitsigns'` enabled (recommended gitsigns keymaps)
+10. Enables `{ import = 'custom.plugins' }` to load custom plugin specs
 
 ## Usage
 
