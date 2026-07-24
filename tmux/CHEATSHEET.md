@@ -1,16 +1,14 @@
-# CHEATSHEET
-## TMUX CHEATSHEET
 
 All commands are prefixed by prefix command.
-Default is `C-b`
-Now its changed to `C-leader`
+Default is `C-b` (Ctrl and b)
+Now its changed to `C-leader` (Ctrl and Space)
 
 ---
 ## Window
 New window - `<prefix>` c
 Switch window - `<prefix>` 0 (window number)
 Cycle through windows - `<prefix>` n, `<prefix>` p
-Swap windows -
+Swap windows number 2(src) and 1(dst)- `:swap-window -s 2 -t 1` 
 Kill window - `<prefix>` &
 Rename window - `<prefix>` ,
 
