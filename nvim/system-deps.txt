@@ -7,3 +7,4 @@
 tree-sitter-cli   # nvim-treesitter — compiles language parsers
 imagemagick       # image.nvim (magick_cli processor) — inline image viewing; also needs Kitty-graphics terminal
 lazygit           # lazygit.nvim — git UI in floating window
+ripgrep           # telescope.nvim — live_grep/grep_string pickers
