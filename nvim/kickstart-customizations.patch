@@ -1,5 +1,5 @@
 diff --git a/init.lua b/init.lua
-index 8d1f19a..6e8b8d9 100644
+index 8d1f19a..bb57c36 100644
 --- a/init.lua
 +++ b/init.lua
 @@ -91,7 +91,7 @@ vim.g.mapleader = ' '
@@ -59,7 +59,19 @@ index 8d1f19a..6e8b8d9 100644
        vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
  
        -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
-@@ -595,6 +611,16 @@ require('lazy').setup({
+@@ -436,6 +452,11 @@ require('lazy').setup({
+           -- To jump back, press <C-t>.
+           vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
+ 
++          -- Same as `grd`, but opens the definition in a new tab instead of the current window.
++          vim.keymap.set('n', 'gr<Tab>', function()
++            builtin.lsp_definitions { jump_type = 'tab' }
++          end, { buffer = buf, desc = '[G]oto Definition in new Tab' })
++
+           -- Fuzzy find all the symbols in your current document.
+           -- Symbols are things like variables, functions, types, etc.
+           vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
+@@ -595,6 +616,16 @@ require('lazy').setup({
          end,
        })
  
@@ -76,7 +88,7 @@ index 8d1f19a..6e8b8d9 100644
        -- Enable the following language servers
        --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
        --  See `:help lsp-config` for information about keys and how to configure
-@@ -602,14 +628,25 @@ require('lazy').setup({
+@@ -602,14 +633,25 @@ require('lazy').setup({
        local servers = {
          -- clangd = {},
          -- gopls = {},
@@ -105,7 +117,7 @@ index 8d1f19a..6e8b8d9 100644
  
          stylua = {}, -- Used to format Lua code
  
-@@ -867,12 +904,35 @@ require('lazy').setup({
+@@ -867,12 +909,35 @@ require('lazy').setup({
        --  You could remove this setup call if you don't like it,
        --  and try some other statusline plugin
        local statusline = require 'mini.statusline'
@@ -146,7 +158,7 @@ index 8d1f19a..6e8b8d9 100644
        ---@diagnostic disable-next-line: duplicate-set-field
        statusline.section_location = function() return '%2l:%-2v' end
  
-@@ -952,13 +1012,13 @@ require('lazy').setup({
+@@ -952,13 +1017,13 @@ require('lazy').setup({
    -- require 'kickstart.plugins.lint',
    -- require 'kickstart.plugins.autopairs',
    -- require 'kickstart.plugins.neo-tree',

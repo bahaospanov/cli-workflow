@@ -36,6 +36,7 @@ Center view on selected line - `zz`
 - `gg` — go to file top
 - `G` — go to file bottom
 - `grd` — go to definition (default `gd`, remapped in this layout)
+- `gr<Tab>` — go to definition in a new tab
 - `gD` — go to declaration
 - `grr` — go to references (default `gr`, remapped in this layout)
 - `gri` — go to implementation (default `gi`, remapped in this layout)
