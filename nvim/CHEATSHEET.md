@@ -91,6 +91,7 @@ Flags: `g` = all on line, `c` = confirm, `i` = case-insensitive, `I` = case-sens
 
 ## Help
 - `:help {topic}` — built-in docs
+- `K` (`Shift+k`) — show documentation for symbol under cursor (LSP hover popup); press `K` again to jump into popup
 - `vimtutor` — interactive tutorial (run in shell)
 
 ---
