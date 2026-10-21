@@ -146,7 +146,7 @@ add_pkgs() {
   done
 }
 contains "lazygit" "${SELECTED_MODULES[@]}" && add_pkgs git-delta lazygit
-contains "nvim" "${SELECTED_MODULES[@]}" && add_pkgs neovim tree-sitter-cli imagemagick lazygit ripgrep
+contains "nvim" "${SELECTED_MODULES[@]}" && add_pkgs neovim tree-sitter-cli imagemagick lazygit ripgrep node
 contains "tmux" "${SELECTED_MODULES[@]}" && add_pkgs tmux
 
 if [ "${#BREW_PKGS[@]}" -gt 0 ]; then
