@@ -32,7 +32,7 @@ Modules: `ghostty`, `lazygit`, `tmux`, `nvim`
 
 ## Modules
 
-- `ghostty/` — terminal emulator config (manual paste step, no CLI install path)
+- `ghostty/` — terminal emulator config. Setup installs Ghostty (macOS cask; Linux is a manual step) and JetBrainsMono Nerd Font; the config itself is a manual paste step
 - `lazygit/` — lazygit config, wired to `git-delta` as pager
 - `tmux/` — tmux.conf, TPM + plugins auto-installed
 - `nvim/` — kickstart.nvim base + local customizations

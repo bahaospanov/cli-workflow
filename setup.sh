@@ -162,6 +162,42 @@ if [ "${#BREW_PKGS[@]}" -gt 0 ]; then
   done
 fi
 
+BREW_CASKS=()
+if contains "ghostty" "${SELECTED_MODULES[@]}"; then
+  BREW_CASKS+=(font-jetbrains-mono-nerd-font)  # font-family in ghostty/ghostty.md
+  if [ "$IS_MAC" -eq 1 ]; then BREW_CASKS+=(ghostty); fi
+fi
+
+# Hand-installed counts too: `brew install --cask` fails if the target exists.
+cask_present() {
+  brew list --cask "$1" >/dev/null 2>&1 && return 0
+  case "$1" in
+    ghostty) [ -d /Applications/Ghostty.app ] ;;
+    font-jetbrains-mono-nerd-font)
+      if [ "$IS_MAC" -eq 1 ]; then
+        compgen -G "$HOME/Library/Fonts/JetBrainsMonoNerdFont*" >/dev/null \
+          || compgen -G "/Library/Fonts/JetBrainsMonoNerdFont*" >/dev/null
+      else
+        command -v fc-list >/dev/null 2>&1 && fc-list | grep "JetBrainsMono Nerd Font" >/dev/null
+      fi
+      ;;
+    *) return 1 ;;
+  esac
+}
+
+if [ "${#BREW_CASKS[@]}" -gt 0 ]; then
+  echo
+  echo "==> Installing Homebrew casks"
+  for cask in "${BREW_CASKS[@]}"; do
+    if cask_present "$cask"; then
+      echo "    OK       $cask"
+    else
+      echo "    installing $cask"
+      brew install --cask "$cask"
+    fi
+  done
+fi
+
 # --- module functions ---
 
 setup_ghostty() {
@@ -173,6 +209,9 @@ setup_ghostty() {
   else
     GHOSTTY_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/ghostty"
     GHOSTTY_FILE="$GHOSTTY_DIR/config"
+    if ! command -v ghostty >/dev/null 2>&1; then
+      echo "    Manual: install Ghostty from your distro's package, see https://ghostty.org/docs/install/binary"
+    fi
   fi
   mkdir -p "$GHOSTTY_DIR"
   echo "    Manual: copy the config block from $REPO_DIR/ghostty/ghostty.md into $GHOSTTY_FILE"
@@ -210,7 +249,7 @@ done
 
 echo
 echo "==> Bootstrap complete. Remaining manual steps:"
-contains "ghostty" "${SELECTED_MODULES[@]}" && echo "  - ghostty: paste config block per instructions above (no CLI install path)"
+contains "ghostty" "${SELECTED_MODULES[@]}" && echo "  - ghostty: paste config block per instructions above (config is not auto-restored)"
 contains "nvim" "${SELECTED_MODULES[@]}" && echo "  - nvim: open nvim, run :Lazy restore, then :Mason and install tools in nvim/mason-tools.txt"
 contains "nvim" "${SELECTED_MODULES[@]}" && echo "  - nvim: image.nvim needs a Kitty-graphics terminal (Ghostty/Kitty/WezTerm) and, inside tmux, 'allow-passthrough on' in tmux.conf"
 if contains "ghostty" "${SELECTED_MODULES[@]}" || contains "lazygit" "${SELECTED_MODULES[@]}"; then
