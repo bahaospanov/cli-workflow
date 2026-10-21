@@ -25,6 +25,13 @@ else
   echo "TPM already present."
 fi
 
+# TPM looks for plugins next to the config (~/.config/tmux/plugins); link it to ~/.tmux/plugins
+mkdir -p "$HOME/.tmux/plugins"
+if [ ! -e "$LIVE_DIR/plugins" ]; then
+  ln -s "$HOME/.tmux/plugins" "$LIVE_DIR/plugins"
+  echo "Linked $LIVE_DIR/plugins -> $HOME/.tmux/plugins"
+fi
+
 # Install plugins directly from @plugin lines (tpm's own installer can silently no-op)
 mkdir -p "$HOME/.tmux/plugins"
 cd "$HOME/.tmux/plugins"
