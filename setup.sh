@@ -146,7 +146,9 @@ add_pkgs() {
   done
 }
 contains "lazygit" "${SELECTED_MODULES[@]}" && add_pkgs git-delta lazygit
-contains "nvim" "${SELECTED_MODULES[@]}" && add_pkgs neovim tree-sitter-cli imagemagick lazygit ripgrep node
+contains "nvim" "${SELECTED_MODULES[@]}" && add_pkgs neovim tree-sitter-cli imagemagick lazygit ripgrep
+# Any node on PATH (nvm etc.) will do; brew would install a second copy beside it.
+contains "nvim" "${SELECTED_MODULES[@]}" && ! command -v node >/dev/null 2>&1 && add_pkgs node
 contains "tmux" "${SELECTED_MODULES[@]}" && add_pkgs tmux
 
 if [ "${#BREW_PKGS[@]}" -gt 0 ]; then
